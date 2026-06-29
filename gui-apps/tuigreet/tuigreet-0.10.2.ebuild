@@ -279,14 +279,8 @@ inherit cargo tmpfiles
 
 DESCRIPTION="TUI greeter for greetd login manager"
 HOMEPAGE="https://github.com/NotAShelf/tuigreet"
-if [ ${PV} == "9999" ] ; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/NotAShelf/${PN}"
-else
-	SRC_URI="https://github.com/NotAShelf/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz
-	${CARGO_CRATE_URIS}"
-	KEYWORDS="amd64 ~arm64 ~ppc64 ~riscv"
-fi
+SRC_URI="https://github.com/NotAShelf/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz
+${CARGO_CRATE_URIS}"
 
 LICENSE="GPL-3"
 # Dependent crate licenses
@@ -296,7 +290,7 @@ LICENSE+="
 	|| ( Apache-2.0 GPL-2 )
 "
 SLOT="0"
-
+KEYWORDS="~amd64"
 QA_FLAGS_IGNORED="usr/bin/tuigreet"
 
 RDEPEND="
