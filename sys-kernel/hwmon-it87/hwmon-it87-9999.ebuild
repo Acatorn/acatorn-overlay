@@ -18,9 +18,6 @@ CONFIG_CHECK="HWMON HWMON_VID !PPC !SENSORS_IT87"
 
 pkg_setup() {
 	linux-mod-r1_pkg_setup
-
-	BUILD_TARGETS="clean modules"
-	BUILD_PARAMS="KVERSION=${KV_FULL} CC=$(tc-getCC)"
 }
 
 src_compile() {
