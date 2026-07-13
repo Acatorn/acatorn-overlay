@@ -24,12 +24,6 @@ src_compile() {
 	local modlist=(
 		it87=kernel/drivers/hwmon
 	)
-
-	local modargs=(
-		KVERSION="${KV_FULL}"
-	)
-
-	emake KVERSION="${KV_FULL}" CC="$(tc-getCC)" clean
 	linux-mod-r1_src_compile
 }
 
