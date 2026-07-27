@@ -5,15 +5,13 @@ EAPI=8
 
 inherit xdg
 
-DESCRIPTION="Cross Platform file manager"
-HOMEPAGE="https://doublecmd.sourceforge.io/ https://github.com/doublecmd/doublecmd"
-SRC_URI="https://downloads.sourceforge.net/${PN}/${P}-src.tar.gz"
+DESCRIPTION="Cross Platform file manager."
+HOMEPAGE="https://doublecmd.sourceforge.io/"
+SRC_URI="https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}-src.tar.gz"
 
 LICENSE="GPL-2+ LGPL-2.1+ LGPL-3 MPL-1.1 Boost-1.0 BZIP2"
 SLOT="0"
 KEYWORDS="~amd64"
-
-IUSE="wayland"
 
 RDEPEND="
 	!app-misc/doublecmd-bin
@@ -21,21 +19,18 @@ RDEPEND="
 	sys-apps/dbus
 	x11-libs/libX11
 	dev-libs/libqt6pas:=
-	wayland? (
-		dev-libs/wayland
-	)
 "
 
 DEPEND="
 	${RDEPEND}
-	sys-libs/ncurses
+	sys-libs/ncurses:=
 "
 
 BDEPEND="
 	>=dev-lang/lazarus-3.0[qt6]
 "
 
-PATCHES=( "${FILESDIR}"/00-lazbuild-command.patch )
+PATCHES=( "${FILESDIR}"/doublecmd-build.patch )
 
 # Built with fpc, does not respect anything
 QA_FLAGS_IGNORED=".*"
@@ -50,4 +45,12 @@ src_install(){
 	dodoc doc/README.txt doc/changelog.txt
 	rm -r "${ED}"/usr/share/doublecmd/doc || die
 	dosym -r /usr/share/doc/"${PF}" /usr/share/doublecmd/doc
+}
+
+pkg_postinst() {
+	xdg_desktop_database_update
+}
+
+pkg_postrm() {
+	xdg_desktop_database_update
 }
