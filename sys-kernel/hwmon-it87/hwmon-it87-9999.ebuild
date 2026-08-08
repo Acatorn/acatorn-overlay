@@ -21,6 +21,12 @@ pkg_setup() {
 }
 
 src_compile() {
+	# Overwrite Makefile variables.
+	local modargs=(
+		TARGET="${KV_FULL}"
+		KERNEL_BUILD="${KV_OUT_DIR}"
+	)
+
 	local modlist=(
 		it87=kernel/drivers/hwmon
 	)
